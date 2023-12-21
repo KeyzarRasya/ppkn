@@ -4,7 +4,7 @@ const ReportModel = require('./model/report')
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mkb')
+mongoose.connect(process.env.MONGODB_URI)
 
 let isSent = false;
 
@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 app.post('/report', (req, res) => {
     const{kategori, about} = req.body;
     console.log(req.body)
-    isSent = true;
     ReportModel.create({
         kategori:kategori,
         about:about
