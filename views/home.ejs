@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/output.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="w-full h-screen bg-slate-100 flex justify-center items-center">
+      <div class="w-5/6 h-5/6 flex flex-col justify-center items-center">
+        <div>
+          <h1
+            class="text-5xl text-indigo-600 hover:-translate-y-16 duration-1000"
+          >
+            Mechatronics Artificial Intelligence
+          </h1>
+        </div>
+        <div>
+          <a
+            class="mt-5 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-500"
+            href="#policy"
+            >Class Policy</a
+          >
+          <a
+            class="mt-5 inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-red-600 ring-1 ring-inset ring-red-500" href="#report"
+            >Laporan</a
+          >
+        </div>
+      </div>
+    </div>
+    <div id="policy" class="w-full h-screen bg-slate-50">
+      <h1 class="text-center text-5xl p-5">Class Policy</h1>
+      <hr
+        style="width: 300px; height: 4px; margin: auto"
+        class="bg-slate-500"
+      />
+      <div class="text-center mt-28">
+        <p>Paragraf 3</p>
+        <p>
+          Perilaku Tidak Senonoh, Pelecehan atau Pelanggaran Seksual dan
+          Pornografi
+        </p><br>
+        <p>Pasal 19</p>
+        <p class="text-start ml-10">Setiap Mahasiswa UPI Dilarang :</p>
+        <ol class="text-justify ml-16">
+            <li>1. Mengucapkan kata kata tidak senonoh dan/atau berprilaku yang bertentangan dengan norma norma yang berlaku</li>
+            <li>2. melakukan pelecehan seksual, pemerkosaan, perzinahan, homoseks, lesbianisme; dan/atau</li>
+            <li>3. Memproduksi, menggandakan, memiliki, membawa, menyimpan, menyebarkan, memperjualbelikan atau mempertunjukan tulisan, gambar atau film yang mengandung pornografi</li>
+        </ol>
+      </div>
+    </div>
+    <div class="h-screen w-full bg-slate-100 flex justify-center items-center font-serif" id="report">
+        <div class="p-6 text-center formbox w-3/6 h-5/6 bg-slate-50 shadow-xl rounded-md">
+            <h2 class="mb-10">Formulir Laporan</h2>
+            <label  class="block text-sm font-medium leading-6 text-gray-900" for="kategori">Kategori</label>
+            <select id="kate" class="w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6 mb-10" name="kategori" id="kategori">
+                <option value="Catcalling">Catcalling</option>
+                <option value="ks">Kekerasan Seksual</option>
+            </select><br>
+            <label for="lapor">Laporan</label>
+            <textarea id="about" name="about" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <p><%= isSent ? 'Terkirim' : 'Silahkan Kirim Laporan' %></p>
+            <button id="submit" onclick="submitReport()" class="mt-32 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
+        </div>
+    </div>
+    <script>
+        function submitReport(){
+            const body = {
+                kategori:document.querySelector('#kate').value,
+                about:document.querySelector('#about').value
+            }
+
+            fetch('/report', {
+                method:'POST',
+                body:JSON.stringify(body),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            }).then(res => console.log(res))
+            .catch(err => console.log(err))
+        }
+    </script>
+  </body>
+</html>
